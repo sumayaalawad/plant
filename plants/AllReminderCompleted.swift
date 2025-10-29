@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AllReminderCompleted: View {
+    @Binding var plants: [Plant]
+    @State private var showingDeleteEdit = false
+
     var body: some View {
         NavigationView{
             ZStack {
@@ -15,13 +18,17 @@ struct AllReminderCompleted: View {
                 
                 VStack (alignment: .leading, spacing: 20) {
                     
-                    Text("My plants🌱")
-                        .font(.largeTitle)
-                        .padding(.horizontal)
-                        .bold()
+                    HStack {
+                        Text("My plants🌱")
+                            .font(.largeTitle)
+                            .bold()
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+
                     Divider()
+                    
                     VStack {
-                        
                         Spacer()
                         
                         Image("plants")
@@ -40,22 +47,38 @@ struct AllReminderCompleted: View {
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
+                        
                         Spacer()
-                        Button {
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 50, weight: .bold))
-                            .foregroundColor(.green)
-                            .glassEffect()
+                        
+                        // زر تحت يمين
+                        HStack {
+                            Spacer()
+                            Button {
+                                showingDeleteEdit = true
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.system(size: 50, weight: .bold))
+                                    .foregroundColor(.green)
+                            }
                         }
+                        .padding(.horizontal)
+                        .padding(.bottom)
                     }
                     .padding(.horizontal)
                 }
                 .padding()
             }
         }
+        .sheet(isPresented: $showingDeleteEdit) {
+            DeleteEdit(plants: $plants, onSave: {
+                showingDeleteEdit = false
+            }, onCancel: {
+                showingDeleteEdit = false
+            })
+        }
     }
 }
-            #Preview {
-                AllReminderCompleted()
-            }
+
+#Preview {
+    AllReminderCompleted(plants: .constant([]))
+}

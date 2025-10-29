@@ -133,14 +133,14 @@ struct TodayReminder: View {
                     showingDeleteEdit = false
                 })
             }
-            // ✅
+            // ✅  
             .sheet(isPresented: $showAllReminderCompleted) {
-                AllReminderCompleted()
+                AllReminderCompleted(plants: $plants)
             }
         }
     }
     
-    // ✅      وتفتح
+         
     private func checkIfAllWatered() {
         if allWatered {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
