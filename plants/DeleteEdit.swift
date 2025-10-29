@@ -4,7 +4,7 @@
 //
 //  Created by sumaya alawad on 07/05/1447 AH.
 //
-
+// gg
 import SwiftUI
 
 struct DeleteEdit: View {
